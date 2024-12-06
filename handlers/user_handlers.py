@@ -1,6 +1,6 @@
 from aiogram.filters import Command
 from aiogram.types import Message
-from config_data import *
+from config_data import dp, bot
 
 # Этот хэндлер будет срабатывать на команду "/start"
 @dp.message(Command(commands=["start"]))
@@ -21,4 +21,8 @@ async def process_help_command(message: Message):
 # кроме команд "/start" и "/help"
 @dp.message()
 async def send_echo(message: Message):
-    await message.reply(text=message.text)
+    # Проверяем, что message.text не None
+    if message.text is not None:
+        await message.reply(text=message.text)
+    else:
+        await message.reply(text="Вы отправили пустое сообщение.")
