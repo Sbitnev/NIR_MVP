@@ -1,4 +1,6 @@
 from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 
 from dotenv import load_dotenv
 import os
@@ -15,5 +17,5 @@ if token is None:
     raise ValueError("Токен не установлен. Пожалуйста, проверьте файл .env.")
 
 # Создаем объекты бота и диспетчера
-bot = Bot(token=token)
+bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()

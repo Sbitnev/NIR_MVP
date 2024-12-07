@@ -2,6 +2,8 @@ import sqlite3
 from datetime import datetime
 
 
+# https://github.com/ollama/ollama-python
+
 base = sqlite3.connect('database/sqlite.db')
 cursor = base.cursor()
 
