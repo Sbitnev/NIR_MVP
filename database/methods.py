@@ -57,3 +57,23 @@ def add_message(user_id : int, content : str, is_bot : bool=False) -> None:
     finally:
         cursor.close()
         conn.close()
+
+# Функция для получения сообщений из БД
+def get_messages_by_user_id(user_id: int) -> list[dict[str, str]]:
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    # Запрос для получения сообщений пользователя
+    cursor.execute('SELECT content, is_bot FROM messages WHERE user_id = ? ORDER BY created_at ASC;', (user_id,))
+    rows = cursor.fetchall()
+
+    # Формируем список сообщений в нужном формате
+    messages = []
+    for content, is_bot in rows:
+        role = 'assistant' if is_bot else 'user'
+        messages.append({'role': role, 'content': content})
+
+    cursor.close()
+    conn.close()
+
+    return messages

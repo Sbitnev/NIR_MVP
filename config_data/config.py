@@ -19,5 +19,8 @@ if token is None:
     raise ValueError("Токен не установлен. Пожалуйста, проверьте файл .env.")
 
 # Создаем объекты бота и диспетчера
-bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN_V2))
+bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
+
+# Создаем словарь для объектов чатов
+chats : dict = {}
