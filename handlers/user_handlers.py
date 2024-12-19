@@ -24,7 +24,7 @@ async def process_start_command(message: Message):
         user_id = methods.register_user(username, tg_id)
         if debug:
             print(f'Пользователь {username} зарегистрирован')
-    await message.answer('*Привет!*')
+    await message.answer('Привет, это тестовый чат бот для общения с языковой моделью.')
 
 
 # Этот хэндлер будет срабатывать на команду "/help"

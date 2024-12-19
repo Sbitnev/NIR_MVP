@@ -126,6 +126,7 @@ celerybeat.pid
 .venv
 env/
 venv/
+venv2/
 ENV/
 env.bak/
 venv.bak/
@@ -157,6 +158,7 @@ cython_debug/
 # Dev staff
 test.py
 sqlite.db
+test.pdf
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
