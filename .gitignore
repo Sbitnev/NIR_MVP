@@ -159,6 +159,7 @@ cython_debug/
 test.py
 sqlite.db
 test.pdf
+sql_chroma_db
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can

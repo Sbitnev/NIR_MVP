@@ -17,6 +17,8 @@ async def main():
         await dp.start_polling(bot)
     except asyncio.CancelledError:
         print("Polling was cancelled.")
+    except RuntimeError:
+
 
 if __name__ == '__main__':
     asyncio.run(main())
