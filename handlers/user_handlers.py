@@ -1,11 +1,12 @@
 from aiogram.filters import Command
 from aiogram.types import Message
 from config_data import dp, bot
-from config_data.config import debug
+from config_data.config import debug, rag
 from aiogram import Router
 
 from database import methods
 from services.services import chat
+from rag.rag_chain import ask
 
 
 # Инициализируем роутер уровня модуля
@@ -45,7 +46,10 @@ async def send_echo(message: Message):
             if message.from_user.username is not None:
                 user_id = methods.get_user_id_by_tg_id(message.from_user.id)
         methods.add_message(user_id, message.text)
-        msg = await chat(user_id, message.text)
+        if rag:
+            msg = ask(message.text)
+        else:
+            msg = await chat(user_id, message.text)
         await bot.send_message(message.chat.id, msg)
         methods.add_message(user_id, msg, True)
 

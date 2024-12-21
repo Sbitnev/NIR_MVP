@@ -23,23 +23,23 @@ async def chat(user_id: int, content: str) -> str:
     response = await AsyncClient().chat(model='llama3.1', messages=messages)
     return str(response['message']['content'])
 
-class Chat:
-    chats : dict = {}
+# class Chat:
+#     chats : dict = {}
 
-    def __new__(cls, user_id : int, *args, **kwargs):
-        if user_id in cls.chats:
-            return cls.chats[user_id]
-        else:
-            return super().__new__(cls)
+#     def __new__(cls, user_id : int, *args, **kwargs):
+#         if user_id in cls.chats:
+#             return cls.chats[user_id]
+#         else:
+#             return super().__new__(cls)
 
-    def __init__(self, user_id : int):
-        self.user_is = user_id
-        self.messages : list = []
-        Chat.chats[user_id] = self
+#     def __init__(self, user_id : int):
+#         self.user_is = user_id
+#         self.messages : list = []
+#         Chat.chats[user_id] = self
 
-    async def chat(self, user_id: int, content: str) -> str:
-        message = {'role': 'user', 'content': content}
-        self.messages.append(message)
-        response = await AsyncClient().chat(model='llama3.1', messages=self.messages)
-        self.messages.append({'role': 'assistant', 'content': str(response['message']['content'])})
-        return str(response['message']['content'])
+#     async def chat(self, user_id: int, content: str) -> str:
+#         message = {'role': 'user', 'content': content}
+#         self.messages.append(message)
+#         response = await AsyncClient().chat(model='llama3.1', messages=self.messages)
+#         self.messages.append({'role': 'assistant', 'content': str(response['message']['content'])})
+#         return str(response['message']['content'])

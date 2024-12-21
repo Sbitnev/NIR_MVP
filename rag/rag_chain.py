@@ -51,12 +51,19 @@ def ask(query: str):
     # invoke chain
     result = chain.invoke({"input": query})
     # print results
-    print(result["answer"])
-    for doc in result["context"]:
-        print("Source: ", doc.metadata["source"])
+    # print(result["answer"])
+    # for doc in result["context"]:
+    #     print("Source: ", doc.metadata["source"])
+    return result["answer"]
 
-# ask("Какая тема работы Сбитнева?")
 
-# ask("Меня зовут Семен")
+def main():
+    while True:
+        user_input = input("Введите ваш вопрос (или 'stop' для выхода): ")
+        if user_input.lower() == 'stop':
+            print("Завершение работы.")
+            break
+        print(ask(user_input))
 
-# ask("Как меня зовут?")
+if __name__ == '__main__':
+    main()

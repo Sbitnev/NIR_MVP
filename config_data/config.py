@@ -13,6 +13,7 @@ load_dotenv()
 token = os.getenv('TOKEN')
 sqlite : str = str(os.getenv('SQLITE'))
 debug = os.getenv('DEBUG') == 'True'
+rag = os.getenv('RAG') == 'True'
 
 # Проверяем, установлен ли токен
 if token is None:
