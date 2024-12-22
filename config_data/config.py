@@ -11,9 +11,10 @@ load_dotenv()
 
 # Получаем значения переменных
 token = os.getenv('TOKEN')
-sqlite : str = str(os.getenv('SQLITE'))
+sqlite = str(os.getenv('SQLITE'))
 debug = os.getenv('DEBUG') == 'True'
 rag = os.getenv('RAG') == 'True'
+hf_token = str(os.getenv('HF_TOKEN'))
 
 # Проверяем, установлен ли токен
 if token is None:

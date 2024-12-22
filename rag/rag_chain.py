@@ -8,15 +8,16 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 import sys
 from huggingface_hub import login  # type: ignore
+from config_data.config import hf_token
 
 
-access_token_read = "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"
-access_token_write = "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"
+access_token_read = hf_token
+access_token_write = hf_token
 login(token = access_token_read)
 
 def rag_chain():
     model = ChatOllama(model="llama3")
-    #
+
     prompt = PromptTemplate.from_template(
         """
         <s> [Instructions] You are a friendly assistant. Answer the question based only on the following context.
@@ -26,11 +27,11 @@ def rag_chain():
         Answer: [/Instructions]
         """
     )
-    #Load vector store
+    # Загрузка векторной БД
     embedding = FastEmbedEmbeddings()
     vector_store = Chroma(persist_directory="rag/sql_chroma_db", embedding_function=embedding)
 
-    #Create chain
+    # Создание цепи
     retriever = vector_store.as_retriever(
         search_type="similarity_score_threshold",
         search_kwargs={
@@ -41,12 +42,12 @@ def rag_chain():
 
     document_chain = create_stuff_documents_chain(model, prompt)
     chain = create_retrieval_chain(retriever, document_chain)
-    #
+
     return chain
 
 
 def ask(query: str):
-    #
+
     chain = rag_chain()
     # invoke chain
     result = chain.invoke({"input": query})

@@ -1,7 +1,9 @@
+import asyncio
+
+
 from handlers import user_handlers
 from config_data import dp, bot
 from database.sqlite import sql_start
-import asyncio
 from aiogram.methods import DeleteWebhook
 
 
