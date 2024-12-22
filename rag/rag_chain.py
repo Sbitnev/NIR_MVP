@@ -10,9 +10,10 @@ import sys
 from huggingface_hub import login  # type: ignore
 from config_data.config import hf_token
 
-
 access_token_read = hf_token
 access_token_write = hf_token
+# access_token_read = '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'
+# access_token_write = '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'
 login(token = access_token_read)
 
 def rag_chain():

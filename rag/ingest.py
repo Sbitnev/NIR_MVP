@@ -9,10 +9,10 @@ from langchain.chains import create_retrieval_chain
 import sys
 
 def ingest():
-    # Get the doc
+    # Получаем документ
     loader = PyPDFLoader("test_data/test.pdf")
     pages = loader.load_and_split()
-    # Split the pages by char
+    # Разбиваем документ
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1024,
         chunk_overlap=100,
@@ -21,9 +21,9 @@ def ingest():
     )
     chunks = text_splitter.split_documents(pages)
     print(f"Split {len(pages)} documents into {len(chunks)} chunks.")
-    #
+
     embedding = FastEmbedEmbeddings()
-    #Create vector store
+    # Создание вектороного хранилища
     Chroma.from_documents(documents=chunks,  embedding=embedding, persist_directory="rag/sql_chroma_db")
 
 if __name__ == '__main__':
