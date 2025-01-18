@@ -8,12 +8,12 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 import sys
 from huggingface_hub import login  # type: ignore
-from config_data.config import hf_token
+# from config_data.config import hf_token
 
-access_token_read = hf_token
-access_token_write = hf_token
-# access_token_read = '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'
-# access_token_write = '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'
+# access_token_read = hf_token
+# access_token_write = hf_token
+access_token_read = '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'
+access_token_write = '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'
 login(token = access_token_read)
 
 def rag_chain():
@@ -21,8 +21,9 @@ def rag_chain():
 
     prompt = PromptTemplate.from_template(
         """
-        <s> [Instructions] You are a friendly assistant. Answer the question based only on the following context.
-        If you don't know the answer, then reply, No Context availabel for this question {input}. [/Instructions] </s>
+        <s> [Instructions] You are a friendly assistant. Answer the question based only on the following context. Structure your response in the following format:
+        Advice: [Your advice based on the context]
+        If you don't know the answer, reply with "No Context available for this question: {input}." [/Instructions] </s>
         [Instructions] Question: {input}
         Context: {context}
         Answer: [/Instructions]
