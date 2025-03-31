@@ -15,7 +15,7 @@ def ingest():
     # Разбиваем документ
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1024,
-        chunk_overlap=100,
+        chunk_overlap=200,
         length_function=len,
         add_start_index=True,
     )

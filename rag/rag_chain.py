@@ -21,9 +21,11 @@ def rag_chain():
 
     prompt = PromptTemplate.from_template(
         """
-        <s> [Instructions] You are a friendly assistant. Answer the question based only on the following context. Structure your response in the following format:
-        Advice: [Your advice based on the context]
-        If you don't know the answer, reply with "No Context available for this question: {input}." [/Instructions] </s>
+        <s> [Instructions] You are a classifier model.
+        Based on the following question, determine the category it belongs to from the list: "благоустройство", "образование", "молодежная политика", "социальные вопросы", "здравоохранение".
+        Structure your response in the following format:
+        [category from the list: "благоустройство", "образование", "молодежная политика", "социальные вопросы", "здравоохранение"]
+        If you cannot determine the category, reply with "unknown"." [/Instructions] </s>
         [Instructions] Question: {input}
         Context: {context}
         Answer: [/Instructions]
