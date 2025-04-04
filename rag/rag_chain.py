@@ -1,22 +1,19 @@
+import asyncio
 from langchain_community.vectorstores import Chroma
-from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.chat_models import ChatOllama
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.prompts import PromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
-import sys
 from huggingface_hub import login  # type: ignore
-# from config_data.config import hf_token
 
-# access_token_read = hf_token
-# access_token_write = hf_token
+# access_token_read = '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'
+# access_token_write = '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'
 access_token_read = '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'
 access_token_write = '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'
-login(token = access_token_read)
+login(token=access_token_read)
 
-def rag_chain():
+async def rag_chain():
     model = ChatOllama(model="llama3")
 
     prompt = PromptTemplate.from_template(
@@ -24,7 +21,7 @@ def rag_chain():
         <s> [Instructions] You are a classifier model.
         Based on the following question, determine the category it belongs to from the list: "благоустройство", "образование", "молодежная политика", "социальные вопросы", "здравоохранение".
         Structure your response in the following format:
-        [category from the list: "благоустройство", "образование", "молодежная политика", "социальные вопросы", "здравоохранение"]
+        [Only category from the list in lower: "благоустройство", "образование", "молодежная политика", "социальные вопросы", "здравоохранение"]
         If you cannot determine the category, reply with "unknown"." [/Instructions] </s>
         [Instructions] Question: {input}
         Context: {context}
@@ -49,26 +46,19 @@ def rag_chain():
 
     return chain
 
-
-def ask(query: str):
-
-    chain = rag_chain()
+async def ask(query: str):
+    chain = await rag_chain()
     # invoke chain
-    result = chain.invoke({"input": query})
-    # print results
-    # print(result["answer"])
-    # for doc in result["context"]:
-    #     print("Source: ", doc.metadata["source"])
+    result = await chain.ainvoke({"input": query})
     return result["answer"]
 
-
-def main():
+async def main():
     while True:
         user_input = input("Введите ваш вопрос (или 'stop' для выхода): ")
         if user_input.lower() == 'stop':
             print("Завершение работы.")
             break
-        print(ask(user_input))
+        print(await ask(user_input))
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
