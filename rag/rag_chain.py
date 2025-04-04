@@ -28,6 +28,7 @@ async def rag_chain():
         Answer: [/Instructions]
         """
     )
+
     # Загрузка векторной БД
     embedding = FastEmbedEmbeddings()
     vector_store = Chroma(persist_directory="rag/sql_chroma_db", embedding_function=embedding)
